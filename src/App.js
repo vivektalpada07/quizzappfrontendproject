@@ -5,16 +5,24 @@ import QuizList from './QuizStatics/QuizList';
 import CreateQuiz from './pages/CreateQuiz';
 import EditQuiz from './pages/EditQuiz';
 import UserList from './pages/UserList';
-import QuizQuestions from './pages/QuizQuestions';
 import PlayQuiz from './pages/PlayQuiz'
 import SideBar from './components/SideBar'; // Sidebar for navigation
 import NotFound from './pages/NotFound'; // Custom Not Found Page
 import './styles/App.css';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import AuthProvider from './services/AuthContext';
+import PlayerDashboard from './pages/PlayerDashboard';
+import ViewQuizzes from './pages/ViewQuizzes';
+import QuizQuestions from './pages/QuizQuestions';
+import QuizProvider from './services/QuizContext';
 
 function App() {
   const [quizzes, setQuizzes] = useState([]);
 
   return (
+    <AuthProvider>
+      <QuizProvider>
     <Router>
       <div className="app-container">
         {/* Sidebar */}
@@ -25,6 +33,8 @@ function App() {
             {/* Welcome Route */}
             <Route path="/" element={<h1>Welcome to the Quiz App</h1>} />
 
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             {/* Dashboard Routes */}
             <Route path="/dashboard" element={<Dashboard />}>
               {/* Nested Routes under Dashboard */}
@@ -32,18 +42,23 @@ function App() {
               <Route path="create-quiz" element={<CreateQuiz setQuizzes={setQuizzes} />} />
               <Route path="edit-quiz/:id" element={<EditQuiz quizzes={quizzes} setQuizzes={setQuizzes} />} />
               <Route path="users" element={<UserList />} />
-              <Route path="/dashboard/quizzes/:quizId" element={<QuizQuestions />} />
             </Route>
 
-            {/* Quiz Routes */}
-            <Route path="/quiz/:quizId" element={<QuizQuestions />} />
-            <Route path="/play/:quizId" element={<PlayQuiz />} />
+            <Route path="/player-dashboard" element={<PlayerDashboard />}>
+              {/* Quiz Routes */}
+              <Route path="quizzes" element={<ViewQuizzes />} />
+              <Route path="quiz/:quizId" element={<QuizQuestions />} />
+              <Route path=":quizId/play" element={<PlayQuiz />} />
+            </Route>
+            
             {/* 404 Route */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </div>
     </Router>
+    </QuizProvider>
+    </AuthProvider>
   );
 }
 

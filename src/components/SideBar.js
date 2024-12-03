@@ -12,16 +12,10 @@ const SideBar = () => {
             <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <NavLink to="/dashboard">Dashboard</NavLink>
+            <NavLink to="/login">Login</NavLink>
           </li>
           <li>
-            <NavLink to="/dashboard/quizzes">Quizzes</NavLink>
-          </li>
-          <li>
-            <NavLink to="/dashboard/create-quiz">Create Quiz</NavLink>
-          </li>
-          <li>
-            <NavLink to="/dashboard/users">Users</NavLink>
+            <NavLink to="/register">Register</NavLink>
           </li>
         </ul>
       </nav>
