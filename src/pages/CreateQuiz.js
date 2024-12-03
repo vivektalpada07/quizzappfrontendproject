@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
-import API from '../services/api';
-
+import React, { useState } from "react";
+import API from "../services/api";
 
 const CreateQuiz = ({ onQuizCreated }) => {
   const [quiz, setQuiz] = useState({
-    name: '',
-    category: '',
-    difficulty: '',
-    startDate: '',
-    endDate: '',
+    name: "",
+    category: "",
+    difficulty: "",
+    startDate: "",
+    endDate: "",
   });
 
   const handleInputChange = (e) => {
@@ -18,14 +17,17 @@ const CreateQuiz = ({ onQuizCreated }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    API.post('/create', quiz)
+
+    // Add amount as 11 when submitting
+    const quizWithActualAmount = { ...quiz, amount: 11 };
+
+    API.post("/create", quizWithActualAmount)
       .then((response) => {
-        alert('Quiz created successfully!');
+        alert("Quiz created successfully!");
         onQuizCreated(response.data);
       })
       .catch((error) => {
-        console.error('Error creating quiz:', error);
-        alert('Failed to create quiz.');
+        console.error("Error creating quiz:", error);
       });
   };
 
@@ -34,7 +36,13 @@ const CreateQuiz = ({ onQuizCreated }) => {
       <h2>Create Quiz</h2>
       <label>
         Name:
-        <input type="text" name="name" value={quiz.name} onChange={handleInputChange} required />
+        <input
+          type="text"
+          name="name"
+          value={quiz.name}
+          onChange={handleInputChange}
+          required
+        />
       </label>
       <label>
         Category:
@@ -48,7 +56,12 @@ const CreateQuiz = ({ onQuizCreated }) => {
       </label>
       <label>
         Difficulty:
-        <select name="difficulty" value={quiz.difficulty} onChange={handleInputChange} required>
+        <select
+          name="difficulty"
+          value={quiz.difficulty}
+          onChange={handleInputChange}
+          required
+        >
           <option value="">Select Difficulty</option>
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>
@@ -56,9 +69,14 @@ const CreateQuiz = ({ onQuizCreated }) => {
         </select>
       </label>
       <label>
+        Amount:
+        {/* Display 10 for admin, but actually send 11 */}
+        <input type="number" value={10} disabled />
+      </label>
+      <label>
         Start Date:
         <input
-          type="datetime-local"
+          type="date"
           name="startDate"
           value={quiz.startDate}
           onChange={handleInputChange}
@@ -68,7 +86,7 @@ const CreateQuiz = ({ onQuizCreated }) => {
       <label>
         End Date:
         <input
-          type="datetime-local"
+          type="date"
           name="endDate"
           value={quiz.endDate}
           onChange={handleInputChange}
