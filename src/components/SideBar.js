@@ -17,6 +17,21 @@ const SideBar = () => {
           <li>
             <NavLink to="/register">Register</NavLink>
           </li>
+          <li>
+            <NavLink to="/dashboard">Dashboard</NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/quizzes">Quizzes</NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/create-quiz">Create Quiz</NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/users">Users</NavLink>
+          </li>
+          <li>
+            <NavLink to="/player-dashboard">Player Dashboard</NavLink>
+          </li>
         </ul>
       </nav>
     </div>
